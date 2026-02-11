@@ -1,0 +1,95 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AuthPayload {
+  accessToken: String!
+  refreshToken: String!
+}
+
+type Comment {
+  author: User!
+  content: String!
+  createdAt: DateTime!
+  id: ID!
+  postId: ID!
+}
+
+input CreateCommentInput {
+  content: String!
+  postId: ID!
+}
+
+input CreatePostInput {
+  content: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type HealthStatus {
+  status: String!
+  timestamp: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  createComment(input: CreateCommentInput!): Comment!
+  createPost(input: CreatePostInput!): Post!
+  follow(followingId: ID!): Boolean!
+  getPresignedUrl(fileType: String!, filename: String!): String!
+  login(input: LoginInput!): AuthPayload!
+  markAsRead(id: ID!): Notification!
+  refreshToken(input: RefreshTokenInput!): AuthPayload!
+  toggleLike(postId: ID!): Boolean!
+  unfollow(followingId: ID!): Boolean!
+  updateUser(input: UpdateUserInput!): User!
+}
+
+type Notification {
+  content: String!
+  createdAt: DateTime!
+  id: ID!
+  read: Boolean!
+  type: String!
+}
+
+type Post {
+  author: User!
+  content: String!
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
+}
+
+type Query {
+  feed: [Post!]!
+  healthCheck: HealthStatus!
+  me: User!
+  notifications: [Notification!]!
+  posts: [Post!]!
+}
+
+input RefreshTokenInput {
+  refreshToken: String!
+}
+
+input UpdateUserInput {
+  displayName: String
+  username: String
+}
+
+type User {
+  createdAt: DateTime!
+  displayName: String
+  email: String!
+  id: ID!
+  updatedAt: DateTime!
+  username: String
+}
